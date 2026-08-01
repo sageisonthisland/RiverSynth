@@ -1,12 +1,10 @@
 """
-A Processor statefully modifies audio.
+A Processor statefully modifies audio. Really
+they're just stateful functions.
 
 processor(sample) -> return processed sample and update state
-processor(buffer) -> return new processed buffer and update state
-processor(SampleStream) -> return a SignalPath that routes
-                           the sample stream through the processor.
-                           Only updates state when read is called
-                           on the resulting SignalPath
+processors([sample1, sample2,...]) -> return process applied to the sum
+of the samples and update state
 """
 abstract type Processor end
 
@@ -41,19 +39,10 @@ function (f::Filter)(sample::Sample)
     output
 end
 
-function (f::Filter)(inbuf::SampleBuf)
-    outbuf = SampleBuf(Sample, sr, nframes(inbuf))
-    f.state = inbuf[1]
-    for i in 1:nframes(inbuf)
-        outbuf[i] = f(inbuf[i])
-    end
-    outbuf
+function (f::Filter)(samples::Vector{Sample})
+    output, f.state = f.filterfunction(f.ω, f.r, samples, f.state)
+    output
 end
-
-function (f::Filter)(stream::U) where {U<:SampleSource}
-    SignalPath(stream, f)
-end
-
 
 mutable struct Waveshaper <: Processor
 end

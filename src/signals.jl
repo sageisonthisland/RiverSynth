@@ -1,5 +1,8 @@
 """
     This is what glues the synth into SampledSignals.
+
+    Interface: must implement tick!(s::Signal) which
+    outputs next sample and updates state
 """
 abstract type Signal <: SampleSource end
 

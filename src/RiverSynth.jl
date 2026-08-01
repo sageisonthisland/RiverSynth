@@ -11,35 +11,32 @@ Architecture:
 module RiverSynth
 
 const sr = 192000
-const Sample = BigFloat
+const Sample = Float64
 
 using GLMakie, FileIO
 using Unitful, FFTW
 using PortAudio, LibSndFile, SampledSignals
-using DSP
 using CoherentNoise: fbm_fractal_1d as fbm, multi_fractal_1d as multi, simplex_1d as simplex, sample as samplenoise
 
 export Sample, Hz, kHz, s
+export Signal
 
-export Signal, ModBus, Voice
 export tick!
-export levels, modbus, modmatrix, modmatrix!
+export ModBus, Voice
+export sources, levels, modbus, modmatrix, modmatrix!
 export destinations, orginal, setters
 export Oscillator, SineOscillator, SawOscillator
-export NoiseOscillator, fbm, multi, simplex
 export freq, freq!, phase, phase!, level, level!
+export NoiseOscillator, fbm, multi, simplex
 export Processor, Filter
 export cutoff, cutoff!, resonance, resonance!
 export onepole_lp
-export SignalPath
 export filtertest
-export PortAudioStream
 
 include("utils.jl")
 include("signals.jl")
 include("oscillators.jl")
 include("processors.jl")
-include("signalpaths.jl")
 include("filterfunctions.jl")
 include("voices.jl")
 include("visualization.jl")
