@@ -1,12 +1,8 @@
 """
 Architecture:
-* Oscillators are the basic sources of sound, subtyping SampleStream
+* Signals
+* Oscillators are the basic sources of sound, subtyping Signal
 * Processors are callable objects that statefully process samples and buffers
-* SignalPaths allow processors to process SampleStreams without knowing
-  what the stream will output in advance. They start with a stream and
-  run it sequentially through a Vector of processors. The resulting
-  SignalPath subtypes SampleStream
-
 """
 module RiverSynth
 

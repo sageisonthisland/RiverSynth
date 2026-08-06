@@ -40,8 +40,7 @@ function (f::Filter)(sample::Sample)
 end
 
 function (f::Filter)(samples::Vector{Sample})
-    output, f.state = f.filterfunction(f.ω, f.r, samples, f.state)
-    output
+    f(sum(samples))
 end
 
 mutable struct Waveshaper <: Processor
